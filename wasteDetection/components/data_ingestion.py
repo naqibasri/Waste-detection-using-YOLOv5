@@ -2,6 +2,7 @@ import os
 import sys
 import zipfile
 import gdown
+import shutil
 from wasteDetection.logger import logging
 from wasteDetection.exception import AppException
 from wasteDetection.entity.config_entity import DataIngestionConfig
@@ -31,9 +32,12 @@ class DataIngestion:
             logging.info(f"Downloading data from {dataset_url} into file {zip_file_path}")
 
 
-            file_id = dataset_url.split("/")[-2]
-            prefix = 'https://drive.google.com/uc?/export=download&id='
-            gdown.download(prefix+file_id,zip_file_path)
+            #file_id = dataset_url.split("/")[-2]
+            #prefix = 'https://drive.google.com/uc?/export=download&id='
+            #gdown.download(prefix+file_id,zip_file_path)
+            DATA_NAME = 'waste-detection.zip'
+            source = os.path.join(os.getcwd(),DATA_NAME)
+            shutil.copy(source, zip_file_path)
 
             logging.info(f"Downloaded data from {dataset_url} into file {zip_file_path}")
 
